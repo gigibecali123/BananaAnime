@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BananaAnime - Acasă</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #111);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      user-select: none;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #ffcc00, #ff3300);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px #ff3300;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0 15px;
+      padding: 8px 15px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ff3300;
+      border-color: #ff3300;
+      box-shadow: 0 0 8px #ff3300;
+      cursor: pointer;
+    }
+
+    #searchInput {
+      margin: 25px auto 40px auto;
+      display: block;
+      width: 60%;
+      max-width: 500px;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: none;
+      font-size: 1.2rem;
+      box-shadow: 0 0 10px #ff3300;
+      background: #222;
+      color: #eee;
+      transition: box-shadow 0.3s ease;
+    }
+
+    #searchInput::placeholder {
+      color: #999;
+      font-style: italic;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      box-shadow: 0 0 15px #ffcc00;
+      background: #1a1a1a;
+      color: #ffcc00;
+    }
+
+    #animeList {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .anime-card {
+      background: #222;
+      width: 220px;
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 0 20px rgba(255, 51, 0, 0.6);
+      text-align: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .anime-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px #ffcc00, 0 0 40px #ff3300;
+      z-index: 10;
+    }
+
+    .anime-card img {
+      width: 100%;
+      border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 0 10px #ff3300;
+      margin-bottom: 12px;
+      transition: transform 0.4s ease;
+    }
+
+    .anime-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .anime-card a {
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px 15px;
+      background: black;
+      color: white;
+      font-weight: 700;
+      border-radius: 12px;
+      border: 2px solid #ff3300;
+      box-shadow: 0 0 8px #ff3300;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .anime-card a:hover {
+      background-color: #ff3300;
+      color: #111;
+      box-shadow: 0 0 15px #ffcc00;
+    }
+
+    /* Message "Nu a fost gasit" */
+    #noResults {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #ff3300;
+      margin-top: 40px;
+      user-select: none;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BananaAnime</h1>
+    <nav>
+      <a href="#">Toate</a>
+      <a href="#">Aventură</a>
+      <a href="#">Acțiune</a>
+      <a href="#">Comedie</a>
+      <a href="#">Romantic</a>
+      <a href="#">Drama</a>
+    </nav>
+  </header>
+
+  <input id="searchInput" type="text" placeholder="Caută anime..." />
+
+  <div id="animeList">
+    <!-- Anime cards -->
+    <div class="anime-card">
+      <img src="https://i.imgur.com/NnT4nqc.jpg" alt="Kaijuu 8-gou" />
+      <a href="watch.html?ep=kaijuu-1">Kaijuu 8-gou</a>
+    </div>
+    <div class="anime-card">
+      <img src="https://i.imgur.com/k3qSgEd.jpg" alt="Black Clover" />
+      <a href="watch.html?ep=blackclover-1">Black Clover</a>
+    </div>
+    <div class="anime-card">
+      <img src="https://i.imgur.com/VxdybGP.jpg" alt="Naruto" />
+      <a href="watch.html?ep=naruto-1">Naruto</a>
+    </div>
+    <div class="anime-card">
+      <img src="https://i.imgur.com/9xmjXH0.jpg" alt="My Hero Academia" />
+      <a href="watch.html?ep=myhero-1">My Hero Academia</a>
+    </div>
+  </div>
+
+  <p id="noResults" style="display:none;">Nu a fost găsit niciun anime.</p>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const animeList = document.getElementById('animeList');
+    const noResults = document.getElementById('noResults');
+    const cards = animeList.querySelectorAll('.anime-card');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      let matches = 0;
+      cards.forEach(card => {
+        const title = card.querySelector('a').textContent.toLowerCase();
+        if (title.includes(query)) {
+          card.style.display = 'block';
+          matches++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      noResults.style.display = matches === 0 ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>
+
