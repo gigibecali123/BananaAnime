@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kaijuu 8-gou – Episodul 1</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🍌 BananaAnime</h1>
+    <nav>
+      <a href="index.html">Acasă</a>
+    </nav>
+  </header>
+
+  <main style="text-align: center; padding: 20px;">
+    <h2>Kaijuu 8-gou – Episodul 1</h2>
+
+    <div class="video-frame">
+      <iframe id="videoPlayer" src="https://d-s.io/d/pp6d9yrttrsv" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="source-buttons">
+      <button data-src="https://d-s.io/d/pp6d9yrttrsv">Sursa 1</button>
+      <button data-src="https://mivalyo.com/e/up02ywo0p7l0.html">Sursa 2</button>
+      <button data-src="https://veo.co/e/example2">Sursa 3</button>
+    </div>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.source-buttons button');
+    const iframe = document.getElementById('videoPlayer');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = btn.getAttribute('data-src');
+        iframe.src = src;
+      });
+    });
+  </script>
+</body>
+</html>
