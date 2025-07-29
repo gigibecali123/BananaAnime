@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BananaAnime</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>BananaAnime</h1>
+    <nav>
+      <a href="#" id="homeLink">Acasă</a>
+    </nav>
+  </header>
+
+  <main id="content" style="padding: 20px; text-align: center;">
+    <!-- Conținutul se va încărca aici -->
+  </main>
+
+  <script>
+    const content = document.getElementById('content');
+
+    const animeData = {
+      kaijuu: {
+        title: "Kaijuu 8-gou",
+        img: "https://somoskudasai.com/wp-content/uploads/2021/06/Visual-1.jpg",
+        sources: [
+          { name: "Sursa 1", url: "https://mivalyo.com/e/up02ywo0p7l0.html" },
+          { name: "Sursa 2", url: "https://doodstream.com/e/example1" },
+          { name: "Sursa 3", url: "https://veo.co/e/example2" },
+        ]
+      },
+
+      onepiece: {
+        title: "One Piece",
+        img: "https://upload.wikimedia.org/wikipedia/en/7/7a/One_Piece_Logo.svg",
+        sources: [
+          { name: "Sursa 1", url: "https://example.com/onepiece1" },
+          { name: "Sursa 2", url: "https://example.com/onepiece2" },
+        ]
+      }
+    };
+
+    function loadHome() {
+      let html = '<h2>Anime-uri disponibile</h2><div id="animeList" style="display:flex;gap:20px;justify-content:center;">';
+
+      for (const key in animeData) {
+        const anime = animeData[key];
+        html += `
+          <div class="anime-card" style="background:#222; padding:10px; border-radius:10px; width:180px;">
+            <img src="${anime.img}" alt="${anime.title}" style="width:100%; border-radius:10px;">
+            <a href="#${key}" style="display:block; margin-top:10px; color:white; text-decoration:none;">${anime.title}</a>
+          </div>
+        `;
+      }
+
+      html += '</div>';
+      content.innerHTML = html;
+    }
+
+    function loadAnimePage(key) {
+      const anime = animeData[key];
+      if (!anime) {
+        content.innerHTML = "<h2>Anime-ul nu a fost găsit.</h2>";
+        return;
+      }
+
+      let html = `
+        <h2>${anime.title} - Episodul 1</h2>
+        <div class="video-frame" style="width:90%; max-width:900px; aspect-ratio:16/9; margin:20px auto; box-shadow: 0 0 20px red; border-radius:10px; overflow:hidden;">
+          <iframe id="videoPlayer" src="${anime.sources[0].url}" frameborder="0" allowfullscreen style="width:100%; height:100%;"></iframe>
+        </div>
+        <div class="source-buttons" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+      `;
+
+      anime.sources.forEach(source => {
+        html += `<button style="background:black; color:white; border:2px solid red; border-radius:6px; padding:8px; cursor:pointer;" data-src="${source.url}">${source.name}</button>`;
+      });
+
+      html += `</div>`;
+
+      html += `<div style="margin-top:20px;"><a href="#" id="backHome" style="color:#ffcc00; text-decoration:none;">Înapoi la listă</a></div>`;
+
+      content.innerHTML = html;
+
+      const buttons = document.querySelectorAll('.source-buttons button');
+      const iframe = document.getElementById('videoPlayer');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          iframe.src = btn.getAttribute('data-src');
+        });
+      });
+
+      document.getElementById('backHome').addEventListener('click', e => {
+        e.preventDefault();
+        window.location.hash = '';
+      });
+    }
+
+    function router() {
+      const hash = window.location.hash.substring(1);
+      if (!hash) {
+        loadHome();
+      } else {
+        loadAnimePage(hash);
+      }
+    }
+
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', router);
+  </script>
+</body>
+</html>
+
