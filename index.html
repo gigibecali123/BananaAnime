@@ -1,240 +1,481 @@
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BananaAnime - Acasă</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1a1a1a, #111);
-      color: #eee;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-      user-select: none;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      background: linear-gradient(90deg, #ffcc00, #ff3300);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 10px #ff3300;
-    }
-
-    nav {
-      margin-top: 15px;
-    }
-
-    nav a {
-      color: #ccc;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin: 0 15px;
-      padding: 8px 15px;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #ff3300;
-      border-color: #ff3300;
-      box-shadow: 0 0 8px #ff3300;
-      cursor: pointer;
-    }
-
-    #searchInput {
-      margin: 25px auto 40px auto;
-      display: block;
-      width: 60%;
-      max-width: 500px;
-      padding: 12px 20px;
-      border-radius: 25px;
-      border: none;
-      font-size: 1.2rem;
-      box-shadow: 0 0 10px #ff3300;
-      background: #222;
-      color: #eee;
-      transition: box-shadow 0.3s ease;
-    }
-
-    #searchInput::placeholder {
-      color: #999;
-      font-style: italic;
-    }
-
-    #searchInput:focus {
-      outline: none;
-      box-shadow: 0 0 15px #ffcc00;
-      background: #1a1a1a;
-      color: #ffcc00;
-    }
-
-    #animeList {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      max-width: 1200px;
-      width: 100%;
-    }
-
-    .anime-card {
-      background: #222;
-      width: 220px;
-      border-radius: 20px;
-      padding: 15px;
-      box-shadow: 0 0 20px rgba(255, 51, 0, 0.6);
-      text-align: center;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .anime-card:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 30px #ffcc00, 0 0 40px #ff3300;
-      z-index: 10;
-    }
-
-    .anime-card img {
-      width: 100%;
-      height: 280px;
-      border-radius: 18px;
-      object-fit: cover;
-      box-shadow: 0 0 10px #ff3300;
-      margin-bottom: 12px;
-      transition: transform 0.4s ease;
-    }
-
-    .anime-card img[alt="Kaijuu 8-gou"],
-    .anime-card img[alt="Naruto"] {
-      object-position: top;
-    }
-
-    .anime-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .anime-card a {
-      text-decoration: none;
-      display: inline-block;
-      padding: 10px 15px;
-      background: black;
-      color: white;
-      font-weight: 700;
-      border-radius: 12px;
-      border: 2px solid #ff3300;
-      box-shadow: 0 0 8px #ff3300;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      margin-top: auto;
-    }
-
-    .anime-card a:hover {
-      background-color: #ff3300;
-      color: #111;
-      box-shadow: 0 0 15px #ffcc00;
-    }
-
-    #noResults {
-      color: #ff3300;
-      font-weight: 600;
-      text-align: center;
-      display: none;
-    }
-
-    /* 🟡 Naruto decor jos stânga */
-    #narutoDecor {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 180px;
-      height: auto;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>BananaAnime</h1>
-    <nav>
-      <a href="#">Toate</a>
-      <a href="#">Aventură</a>
-      <a href="#">Acțiune</a>
-      <a href="#">Comedie</a>
-      <a href="#">Romantic</a>
-      <a href="#">Drama</a>
-    </nav>
-  </header>
-
-  <input id="searchInput" type="text" placeholder="Caută anime..." />
-
-  <div id="animeList">
-    <div class="anime-card">
-      <img src="img-anime/blackcover.jpg" alt="Black Clover" />
-      <a href="watch.html?ep=blackclover-1">Black Clover</a>
-    </div>
-    <div class="anime-card">
-      <img src="img-anime/kajjuu8.jpg" alt="Kaijuu 8-gou" />
-      <a href="watch-kaijuu.html">Kaijuu 8-gou</a>
-    </div>
-    <div class="anime-card">
-      <img src="img-anime/mha.jpg" alt="My Hero Academia" />
-      <a href="watch.html?ep=myhero-1">My Hero Academia</a>
-    </div>
-    <div class="anime-card">
-      <img src="img-anime/nantto.jpg" alt="Naruto" />
-      <a href="watch.html?ep=naruto-1">Naruto</a>
-    </div>
-  </div>
-
-  <p id="noResults">Nu a fost găsit niciun anime.</p>
-
-  <!-- 🔽 Poza Naruto jos în stânga -->
-  <img src="naruto/naruto.jpg" alt="Naruto" id="narutoDecor" />
-
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const animeList = document.getElementById('animeList');
-    const noResults = document.getElementById('noResults');
-    const cards = animeList.querySelectorAll('.anime-card');
-
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase();
-      let matches = 0;
-      
-      cards.forEach(card => {
-        const title = card.querySelector('a').textContent.toLowerCase();
-        if (title.includes(query)) {
-          card.style.display = 'flex';
-          matches++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      noResults.style.display = matches === 0 ? 'block' : 'none';
-    });
-  </script>
-</body>
-</html>
+1	<!DOCTYPE html>
+     2	<html lang="ro">
+     3	  <head>
+     4	    <meta charset="UTF-8" />
+     5	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     6	    <title>KimDesene - Filme, Desene, Anime</title>
+     7	    <link rel="stylesheet" href="styles.css" />
+     8	  </head>
+     9	  <body>
+    10	    <header class="hero">
+    11	      <nav class="nav container">
+    12	        <h1 class="logo">KimDesene</h1>
+    13	        <button id="themeToggle" class="ghost-btn" aria-label="Schimbă tema">🌙</button>
+    14	      </nav>
+    15	      <div class="hero-content container">
+    16	        <p class="tag">Platformă demo pentru filme, desene, seriale și anime</p>
+    17	        <h2>Găsește rapid ce vrei să vezi pe <span>KimDesene</span></h2>
+    18	        <div class="search-wrap">
+    19	          <input
+    20	            id="searchInput"
+    21	            type="search"
+    22	            placeholder="Caută după titlu, tip sau gen..."
+    23	            autocomplete="off"
+    24	          />
+    25	        </div>
+    26	        <div class="genre-filters" id="genreFilters"></div>
+    27	      </div>
+    28	    </header>
+    29	
+    30	    <main class="container sections">
+    31	      <section>
+    32	        <div class="section-title">
+    33	          <h3>Bibliotecă video</h3>
+    34	          <span id="resultsCount"></span>
+    35	        </div>
+    36	        <div id="catalog" class="grid"></div>
+    37	      </section>
+    38	
+    39	      <section>
+    40	        <div class="section-title">
+    41	          <h3>Top Filme</h3>
+    42	        </div>
+    43	        <div id="topMovies" class="top-grid"></div>
+    44	      </section>
+    45	
+    46	      <section>
+    47	        <div class="section-title">
+    48	          <h3>Top Seriale</h3>
+    49	        </div>
+    50	        <div id="topSeries" class="top-grid"></div>
+    51	      </section>
+    52	
+    53	      <section>
+    54	        <div class="section-title">
+    55	          <h3>Top Anime</h3>
+    56	        </div>
+    57	        <div id="topAnime" class="top-grid"></div>
+    58	      </section>
+    59	    </main>
+    60	
+    61	    <footer class="container footer">
+    62	      <p>KimDesene • Demo UI modern pentru conținut video (filme, desene, seriale, anime)</p>
+    63	    </footer>
+    64	
+    65	    <script src="script.js"></script>
+    66	  </body>
+    67	</html>
+     1	:root {
+     2	  --bg: #090b12;
+     3	  --card: #121726;
+     4	  --soft: #1b2235;
+     5	  --text: #edf1ff;
+     6	  --muted: #9ba8d6;
+     7	  --accent: #6b7dff;
+     8	  --accent-2: #6ff0da;
+     9	  --border: rgba(255, 255, 255, 0.12);
+    10	  --shadow: 0 18px 35px rgba(0, 0, 0, 0.3);
+    11	}
+    12	
+    13	body.light {
+    14	  --bg: #f6f8ff;
+    15	  --card: #ffffff;
+    16	  --soft: #eef2ff;
+    17	  --text: #171d32;
+    18	  --muted: #566188;
+    19	  --accent: #4257ff;
+    20	  --accent-2: #14bfa3;
+    21	  --border: rgba(23, 29, 50, 0.12);
+    22	  --shadow: 0 12px 30px rgba(48, 64, 135, 0.13);
+    23	}
+    24	
+    25	* {
+    26	  box-sizing: border-box;
+    27	}
+    28	
+    29	body {
+    30	  margin: 0;
+    31	  font-family: Inter, Segoe UI, Roboto, sans-serif;
+    32	  background: radial-gradient(circle at top right, #1d2550 0%, var(--bg) 45%);
+    33	  color: var(--text);
+    34	  min-height: 100vh;
+    35	}
+    36	
+    37	.container {
+    38	  width: min(1120px, 92vw);
+    39	  margin: 0 auto;
+    40	}
+    41	
+    42	.hero {
+    43	  border-bottom: 1px solid var(--border);
+    44	  padding-bottom: 2rem;
+    45	}
+    46	
+    47	.nav {
+    48	  display: flex;
+    49	  align-items: center;
+    50	  justify-content: space-between;
+    51	  padding: 1rem 0;
+    52	}
+    53	
+    54	.logo {
+    55	  font-size: 1.6rem;
+    56	  margin: 0;
+    57	  letter-spacing: 0.04em;
+    58	}
+    59	
+    60	.ghost-btn {
+    61	  border: 1px solid var(--border);
+    62	  background: var(--card);
+    63	  color: var(--text);
+    64	  border-radius: 999px;
+    65	  padding: 0.5rem 0.8rem;
+    66	  cursor: pointer;
+    67	}
+    68	
+    69	.hero-content h2 {
+    70	  margin: 0.35rem 0 1rem;
+    71	  max-width: 640px;
+    72	  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    73	}
+    74	
+    75	.hero-content h2 span {
+    76	  color: var(--accent-2);
+    77	}
+    78	
+    79	.tag {
+    80	  color: var(--muted);
+    81	  margin-bottom: 0;
+    82	}
+    83	
+    84	.search-wrap {
+    85	  max-width: 520px;
+    86	}
+    87	
+    88	input[type='search'] {
+    89	  width: 100%;
+    90	  border: 1px solid var(--border);
+    91	  background: var(--card);
+    92	  color: var(--text);
+    93	  border-radius: 12px;
+    94	  padding: 0.85rem 1rem;
+    95	  font-size: 1rem;
+    96	  box-shadow: var(--shadow);
+    97	}
+    98	
+    99	.genre-filters {
+   100	  margin-top: 1rem;
+   101	  display: flex;
+   102	  flex-wrap: wrap;
+   103	  gap: 0.6rem;
+   104	}
+   105	
+   106	.filter-btn {
+   107	  border: 1px solid var(--border);
+   108	  background: var(--soft);
+   109	  color: var(--text);
+   110	  border-radius: 999px;
+   111	  padding: 0.45rem 0.85rem;
+   112	  cursor: pointer;
+   113	  font-size: 0.9rem;
+   114	}
+   115	
+   116	.filter-btn.active {
+   117	  background: var(--accent);
+   118	  border-color: transparent;
+   119	}
+   120	
+   121	.sections {
+   122	  padding: 2rem 0 3rem;
+   123	  display: grid;
+   124	  gap: 2.2rem;
+   125	}
+   126	
+   127	.section-title {
+   128	  display: flex;
+   129	  justify-content: space-between;
+   130	  align-items: center;
+   131	  margin-bottom: 0.8rem;
+   132	}
+   133	
+   134	.section-title h3 {
+   135	  margin: 0;
+   136	}
+   137	
+   138	#resultsCount {
+   139	  color: var(--muted);
+   140	  font-size: 0.9rem;
+   141	}
+   142	
+   143	.grid {
+   144	  display: grid;
+   145	  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+   146	  gap: 1rem;
+   147	}
+   148	
+   149	.card {
+   150	  background: linear-gradient(160deg, var(--card), #171f34);
+   151	  border: 1px solid var(--border);
+   152	  border-radius: 16px;
+   153	  overflow: hidden;
+   154	  box-shadow: var(--shadow);
+   155	  display: grid;
+   156	}
+   157	
+   158	.poster {
+   159	  width: 100%;
+   160	  aspect-ratio: 16 / 9;
+   161	  object-fit: cover;
+   162	}
+   163	
+   164	.card-content {
+   165	  padding: 0.8rem 0.9rem 1rem;
+   166	}
+   167	
+   168	.badges {
+   169	  display: flex;
+   170	  flex-wrap: wrap;
+   171	  gap: 0.45rem;
+   172	  margin-bottom: 0.5rem;
+   173	}
+   174	
+   175	.badge {
+   176	  background: rgba(111, 240, 218, 0.12);
+   177	  color: var(--accent-2);
+   178	  border: 1px solid rgba(111, 240, 218, 0.4);
+   179	  border-radius: 999px;
+   180	  padding: 0.2rem 0.55rem;
+   181	  font-size: 0.75rem;
+   182	}
+   183	
+   184	.card h4 {
+   185	  margin: 0;
+   186	}
+   187	
+   188	.card p {
+   189	  margin: 0.35rem 0 0;
+   190	  color: var(--muted);
+   191	  font-size: 0.9rem;
+   192	}
+   193	
+   194	.video-source {
+   195	  display: inline-block;
+   196	  margin-top: 0.6rem;
+   197	  color: #fff;
+   198	  text-decoration: none;
+   199	  background: var(--accent);
+   200	  padding: 0.38rem 0.65rem;
+   201	  border-radius: 8px;
+   202	  font-size: 0.82rem;
+   203	}
+   204	
+   205	.top-grid {
+   206	  display: grid;
+   207	  gap: 0.65rem;
+   208	}
+   209	
+   210	.top-item {
+   211	  background: var(--soft);
+   212	  border: 1px solid var(--border);
+   213	  border-radius: 10px;
+   214	  padding: 0.75rem 0.85rem;
+   215	  display: flex;
+   216	  justify-content: space-between;
+   217	}
+   218	
+   219	.footer {
+   220	  padding-bottom: 2rem;
+   221	  color: var(--muted);
+   222	}
+     1	const content = [
+     2	  {
+     3	    title: 'Aventura Dragonului Albastru',
+     4	    type: 'Film',
+     5	    genre: 'Aventură',
+     6	    year: 2026,
+     7	    image:
+     8	      'https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?auto=format&fit=crop&w=1200&q=80',
+     9	    source: 'https://example.com/video/dragonul-albastru'
+    10	  },
+    11	  {
+    12	    title: 'Noaptea Umbrelor',
+    13	    type: 'Film',
+    14	    genre: 'Horror',
+    15	    year: 2025,
+    16	    image:
+    17	      'https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1200&q=80',
+    18	    source: 'https://example.com/video/noaptea-umbrelor'
+    19	  },
+    20	  {
+    21	    title: 'Echipa Fulger',
+    22	    type: 'Serial',
+    23	    genre: 'Acțiune',
+    24	    year: 2026,
+    25	    image:
+    26	      'https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?auto=format&fit=crop&w=1200&q=80',
+    27	    source: 'https://example.com/video/echipa-fulger'
+    28	  },
+    29	  {
+    30	    title: 'Povesti din Orasul Vesel',
+    31	    type: 'Desen',
+    32	    genre: 'Comedie',
+    33	    year: 2024,
+    34	    image:
+    35	      'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1200&q=80',
+    36	    source: 'https://example.com/video/orasul-vesel'
+    37	  },
+    38	  {
+    39	    title: 'Samurai Neon',
+    40	    type: 'Anime',
+    41	    genre: 'Sci-Fi',
+    42	    year: 2026,
+    43	    image:
+    44	      'https://images.unsplash.com/photo-1460881680858-30d872d5b530?auto=format&fit=crop&w=1200&q=80',
+    45	    source: 'https://example.com/video/samurai-neon'
+    46	  },
+    47	  {
+    48	    title: 'Legendele Mării',
+    49	    type: 'Desen',
+    50	    genre: 'Fantasy',
+    51	    year: 2025,
+    52	    image:
+    53	      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    54	    source: 'https://example.com/video/legendele-marii'
+    55	  },
+    56	  {
+    57	    title: 'Academia Spiritelor',
+    58	    type: 'Anime',
+    59	    genre: 'Mister',
+    60	    year: 2026,
+    61	    image:
+    62	      'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80',
+    63	    source: 'https://example.com/video/academia-spiritelor'
+    64	  },
+    65	  {
+    66	    title: 'Eroi de Carton',
+    67	    type: 'Serial',
+    68	    genre: 'Aventură',
+    69	    year: 2023,
+    70	    image:
+    71	      'https://images.unsplash.com/photo-1517602302552-471fe67acf66?auto=format&fit=crop&w=1200&q=80',
+    72	    source: 'https://example.com/video/eroi-de-carton'
+    73	  }
+    74	];
+    75	
+    76	const topMovies = [
+    77	  ['Aventura Dragonului Albastru', 9.4],
+    78	  ['Noaptea Umbrelor', 8.9],
+    79	  ['Orașul de Cristal', 8.7]
+    80	];
+    81	
+    82	const topSeries = [
+    83	  ['Echipa Fulger', 9.5],
+    84	  ['Eroi de Carton', 9.1],
+    85	  ['Cod 404', 8.8]
+    86	];
+    87	
+    88	const topAnime = [
+    89	  ['Samurai Neon', 9.6],
+    90	  ['Academia Spiritelor', 9.2],
+    91	  ['Lama Lunii', 8.9]
+    92	];
+    93	
+    94	const searchInput = document.getElementById('searchInput');
+    95	const catalog = document.getElementById('catalog');
+    96	const resultsCount = document.getElementById('resultsCount');
+    97	const genreFilters = document.getElementById('genreFilters');
+    98	const themeToggle = document.getElementById('themeToggle');
+    99	let activeGenre = 'Toate';
+   100	
+   101	function renderTop(containerId, items) {
+   102	  const container = document.getElementById(containerId);
+   103	  container.innerHTML = items
+   104	    .map(
+   105	      ([title, score], i) => `
+   106	      <div class="top-item">
+   107	        <strong>#${i + 1} ${title}</strong>
+   108	        <span>⭐ ${score}</span>
+   109	      </div>
+   110	    `
+   111	    )
+   112	    .join('');
+   113	}
+   114	
+   115	function createFilters() {
+   116	  const genres = ['Toate', ...new Set(content.map((item) => item.genre))];
+   117	  genreFilters.innerHTML = genres
+   118	    .map(
+   119	      (genre) =>
+   120	        `<button class="filter-btn ${genre === activeGenre ? 'active' : ''}" data-genre="${genre}">${genre}</button>`
+   121	    )
+   122	    .join('');
+   123	
+   124	  genreFilters.querySelectorAll('.filter-btn').forEach((btn) => {
+   125	    btn.addEventListener('click', () => {
+   126	      activeGenre = btn.dataset.genre;
+   127	      createFilters();
+   128	      renderCatalog();
+   129	    });
+   130	  });
+   131	}
+   132	
+   133	function renderCatalog() {
+   134	  const searchTerm = searchInput.value.trim().toLowerCase();
+   135	
+   136	  const filtered = content.filter((item) => {
+   137	    const textMatch = `${item.title} ${item.type} ${item.genre}`.toLowerCase().includes(searchTerm);
+   138	    const genreMatch = activeGenre === 'Toate' || item.genre === activeGenre;
+   139	    return textMatch && genreMatch;
+   140	  });
+   141	
+   142	  resultsCount.textContent = `${filtered.length} rezultate`;
+   143	
+   144	  if (!filtered.length) {
+   145	    catalog.innerHTML = '<p>Nu am găsit rezultate. Încearcă alt cuvânt sau alt gen.</p>';
+   146	    return;
+   147	  }
+   148	
+   149	  catalog.innerHTML = filtered
+   150	    .map(
+   151	      (item) => `
+   152	      <article class="card">
+   153	        <img class="poster" src="${item.image}" alt="Poster ${item.title}" loading="lazy" />
+   154	        <div class="card-content">
+   155	          <div class="badges">
+   156	            <span class="badge">${item.type}</span>
+   157	            <span class="badge">${item.genre}</span>
+   158	            <span class="badge">${item.year}</span>
+   159	          </div>
+   160	          <h4>${item.title}</h4>
+   161	          <p>Poți înlocui sursa de mai jos cu linkul video real pentru film, desen, serial sau anime.</p>
+   162	          <a class="video-source" href="${item.source}" target="_blank" rel="noreferrer">Sursă video</a>
+   163	        </div>
+   164	      </article>
+   165	    `
+   166	    )
+   167	    .join('');
+   168	}
+   169	
+   170	searchInput.addEventListener('input', renderCatalog);
+   171	
+   172	themeToggle.addEventListener('click', () => {
+   173	  document.body.classList.toggle('light');
+   174	  themeToggle.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+   175	});
+   176	
+   177	createFilters();
+   178	renderCatalog();
+   179	renderTop('topMovies', topMovies);
+   180	renderTop('topSeries', topSeries);
+   181	renderTop('topAnime', topAnime);
+     1	# KimDesene
+     2	
+     3	Site demo pentru filme, desene, seriale și anime, cu:
+     4	- bară de căutare live,
+     5	- butoane de filtrare pe gen,
+     6	- carduri cu poze și link de sursă video,
+     7	- secțiuni de top filme / top seriale / top anime,
+     8	- temă dark/light.
+     9	
+    10	## Rulare locală
+    11	Deschide `index.html` direct în browser.
